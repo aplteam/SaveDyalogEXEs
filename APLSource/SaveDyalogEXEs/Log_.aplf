@@ -1,0 +1,6 @@
+ {r}←fake Log_ msg
+ r←⍬
+ ∆LOG,←⊂msg
+ :If fake
+     ⎕←msg
+ :EndIf

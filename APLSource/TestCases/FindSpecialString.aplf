@@ -1,0 +1,10 @@
+ FindSpecialString←{
+⍝ Use this to search for stuff like "CHECK" or "TODO" enclosed between `⍝` (⍵).
+     ⎕IO←0 ⋄ ⎕ML←3
+     startIn←⍺
+     r←⍉1↓[1]⎕SE.UCMD'locate "',⍵,'" -return=count -objects=',⍕startIn
+     r←(0<r[;1])⌿r                                  ⍝ Drop those with no hits
+     0≥1↑⍴r:r
+     r[;0]←{2>'#'+.=⍵:⍵ ⋄ {⌽⍵↑⍨1+⍵⍳'#'}⌽⍵}¨r[;0]    ⍝ Circumvent bug <01356>
+     r
+ }

@@ -1,0 +1,38 @@
+ yesOrNo←{default}YesOrNo question;isOkay;answer;add
+ isOkay←0
+ default←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'default'
+ isOkay←0
+ :If ~0∊⍴default
+     'Left argument must be a scalar'⎕SIGNAL 11/⍨1≠⍴,default
+ :AndIf ~default∊0 1
+     'The left argument. if specified, must be a Boolean or empty'⎕SIGNAL 11
+ :EndIf
+ :If 0=≢default
+     add←' (y/n) '
+ :Else
+     :If default
+         add←' (Y/n) '
+     :Else
+         add←' (y/N) '
+     :EndIf
+ :EndIf
+ :If 1<≡question
+     ((⍴question)⊃question)←((⍴question)⊃question),add
+     question←⍪question
+ :Else
+     question←question,add
+ :EndIf
+ :Repeat
+     ⍞←question
+     answer←¯1↑⍞
+     :If (1=⍴,answer)∨(0∊⍴answer)∧~0∊⍴default
+         :If ~0∊⍴default
+             yesOrNo←default
+             isOkay←1
+         :ElseIf answer∊'YyNn'
+             isOkay←1
+             yesOrNo←answer∊'Yy'
+         :EndIf
+     :EndIf
+ :Until isOkay
+⍝Done

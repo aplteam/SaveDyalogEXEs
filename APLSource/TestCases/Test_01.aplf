@@ -1,0 +1,14 @@
+ R←Test_01(stopFlag batchFlag);⎕TRAP;log
+⍝ Model for a test function.
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ :If batchFlag
+     R←∆NoBatchTest
+ :Else
+     R←∆Failed
+ :EndIf
+
+ log←##.SaveDyalogEXEs.Run 1
+ →PassesIf~0∊⍴log
+
+ R←∆OK
+⍝Done

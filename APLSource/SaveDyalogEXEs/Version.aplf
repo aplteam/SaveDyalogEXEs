@@ -1,0 +1,3 @@
+ r←Version
+⍝ See also `History`
+ r←({⍵↑⍨-¯1+'.'⍳⍨⌽⍵}⍕⎕THIS)'1.0.0.5' '2018-12-27'

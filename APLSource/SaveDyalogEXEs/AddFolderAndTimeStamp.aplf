@@ -1,0 +1,23 @@
+ r←AddFolderAndTimeStamp(fake version filenames);add;extension;path;rc;version;fake;filename
+ add←10↑A.FormatDateTime ⎕TS
+ ((version='/')/version)←'_'
+ path←∆TARGET_PATH,'\Dyalog\',version
+ :If ~F.IsDir path
+     :If fake
+         Log'Would have created ',path,'...'
+     :Else
+         Assert 1=F.MkDir path
+         Log'Folder created: ',path,'...'
+     :EndIf
+ :EndIf
+ path,←'\',add
+ :If ~F.IsDir path
+     :If fake
+         Log'Would have created ',path,'...'
+     :Else
+         Assert 1=F.MkDir path
+         Log'Folder created: ',path,'...'
+     :EndIf
+ :EndIf
+ r←path∘{(filename extension)←1↓⎕NPARTS ⍵ ⋄ ⍺,'\',filename,extension}¨filenames
+⍝Done

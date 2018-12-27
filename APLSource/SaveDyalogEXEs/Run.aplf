@@ -1,0 +1,43 @@
+ {∆LOG}←{targetPath}Run fake;aplVersions;listOfFiles;version;A;F;R;listOfFiles2;rc;Log;∆TARGET_PATH
+⍝ Takes a copy of all files that are listed in the base\ folder for all versions of Dyalog
+⍝ installed and saves them in {targetPath}\Dyalog\{Versions}\{yyyy-mm-dd}\
+⍝
+⍝ `fake must be a boolean, otherwise an error is thrown.\\
+⍝ If `fake` is 1 then the function does nothing but investigating and reporting
+⍝ to the session which operations it would actually perform.\\
+⍝ Note that %ProgramData% is invisible from the Windows Explorer points of view!\\
+⍝ In case `tartgetPath` is not specified then it defaults to `%ProgramData%`.
+⍝ This option exists purely for test cases.\\
+⍝ Returns a log of all actions taken.
+⍝ This project lives on https://github.com/dyalogusercommands/SaveDyalogEXEs
+⍝ Kai Jaeger / APL Team Ltd.
+ ∆LOG←⍬
+ Log←fake∘Log_
+ (A F R)←##.(APLTreeUtils FilesAndDirs WinReg)
+ 'Right argument must be a boolean'⎕SIGNAL 11/⍨~(⊂fake)∊0 1
+ :If 0<⎕NC'targetPath'
+     'The (optional) left argument must specify an existing directory the user has write access to'⎕SIGNAL 11/⍨0=F.IsDir targetPath
+     ∆TARGET_PATH←targetPath
+ :Else
+     ∆TARGET_PATH←##.WinSys.ExpandEnv'%ProgramData%'
+ :EndIf
+ 'This user command is Windows only for the time being'⎕SIGNAL 11/⍨'Win'≢A.GetOperatingSystem ⍬
+ fake←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'fake'
+ :If YesOrNo'Are you sure that you want to take copies for all installed versions of Dyalog APL?',fake/' (faked!)'
+     aplVersions←1⊃GetAllInstalledVersionsOfDyalog ⍬
+     :For version :In aplVersions
+         listOfFiles←GetListOfFiles version
+         listOfFiles2←AddFolderAndTimeStamp fake version listOfFiles
+         :If fake
+             Log'Would have copied ',(⍕≢listOfFiles),' files to ',(⊃⎕NPARTS⊃listOfFiles2),'...'
+         :Else
+             rc←listOfFiles F.CopyTo¨listOfFiles2
+             Assert 0=+/⊃¨rc
+             Log(⍕⍴listOfFiles),' files copied over...'
+         :EndIf
+     :EndFor
+     ⎕←'*** Done for all ',(⍕≢aplVersions),' versions of Dyalog APL!',fake/' (faked!)'
+ :Else
+     ⎕←'*** No action taken'
+ :EndIf
+⍝Done

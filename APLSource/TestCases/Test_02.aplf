@@ -1,0 +1,25 @@
+ R←Test_02(stopFlag batchFlag);⎕TRAP;log;targetPath;list
+⍝ Model for a test function.
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ :If batchFlag
+     R←∆NoBatchTest
+ :Else
+     R←∆Failed
+ :EndIf
+
+ targetPath←¯1↓''##.FilesAndDirs.GetTempFilename2'SaveDyalogEXEs_Test'
+ ##.FilesAndDirs.DeleteFile targetPath
+ ⎕DL 0.2
+ ##.FilesAndDirs.MkDir targetPath
+ log←targetPath ##.SaveDyalogEXEs.Run 0
+ →GoToTidyUp 0∊⍴log
+ →GoToTidyUp~1≤⍴list←##.FilesAndDirs.ListDirs targetPath,'\Dyalog\*'
+ →GoToTidyUp~1≤⍴list←{⊃##.FilesAndDirs.ListDirs ⍵}¨list
+ →GoToTidyUp(,⊂10↑##.APLTreeUtils.FormatDateTime ⎕TS)≢∪'\'##.APLTreeUtils.Last¨list
+ →GoToTidyUp 0∨.={⊃⍴##.FilesAndDirs.ListFiles ⍵}¨list
+
+ R←∆OK
+
+∆TidyUp:
+ ##.FilesAndDirs.RmDir targetPath
+⍝Done

@@ -1,0 +1,5 @@
+ r←GetListOfFiles version;path;regKey
+ regKey←'HKCU\Software\Dyalog\',version,'\dyalog'
+ path←(R.GetString regKey),'\base'
+ r←1⊃F.Dir path,'\*'
+ ⍝Done

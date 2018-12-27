@@ -1,0 +1,4 @@
+ r←GetAllInstalledVersionsOfDyalog
+ r←R.GetAllSubKeyNames'HKCU\Software\Dyalog'
+ r/⍨←∨/¨'Dyalog'∘⍷¨r
+⍝Done
