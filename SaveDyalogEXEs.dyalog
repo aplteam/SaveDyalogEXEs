@@ -1,4 +1,4 @@
-﻿:Class  APLTeamTools
+﻿:Class GitBash
 ⍝ Kai Jaeger
 ⍝ Version 1.0.0 from 2018-12-21
 ⍝ Use this to take copies from all files of all installed Dyalog APL versions that will get changed when patching.
