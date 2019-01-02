@@ -1,5 +1,5 @@
  R←Test_01(stopFlag batchFlag);⎕TRAP;log
-⍝ Model for a test function.
+⍝ Run SaveDyalogEXEs.Run with a 1 as right argument (fake!).
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  :If batchFlag
      R←∆NoBatchTest

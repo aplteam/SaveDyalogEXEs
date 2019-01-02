@@ -1,5 +1,5 @@
  R←Test_02(stopFlag batchFlag);⎕TRAP;log;targetPath;list
-⍝ Model for a test function.
+⍝ Run SaveDyalogEXEs.Run with a 0 as right argument but specify a particular path via the right argument.
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  :If batchFlag
      R←∆NoBatchTest

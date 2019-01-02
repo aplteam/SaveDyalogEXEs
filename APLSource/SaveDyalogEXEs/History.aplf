@@ -1,3 +1,5 @@
  History
+⍝ * 1.0.1
+⍝   * Bug fix: the user command script did not allow the specification of -fake
 ⍝ * 1.0.0
 ⍝   First version.
