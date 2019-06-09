@@ -1,15 +1,14 @@
  {∆LOG}←{targetPath}Run fake;aplVersions;listOfFiles;version;A;F;R;listOfFiles2;rc;Log;∆TARGET_PATH
-⍝ Takes a copy of all files that are listed in the base\ folder for all versions of Dyalog
-⍝ installed and saves them in {targetPath}\Dyalog\{Versions}\{yyyy-mm-dd}\
-⍝
+⍝ Takes a copy of all files that are listed in the base\ folder from base\.. (the parent) for
+⍝ all versions of Dyalog installed and saves them in {targetPath}\Dyalog\{Versions}\{yyyy-mm-dd}\.\\
 ⍝ `fake must be a boolean, otherwise an error is thrown.\\
 ⍝ If `fake` is 1 then the function does nothing but investigating and reporting
 ⍝ to the session which operations it would actually perform.\\
-⍝ Note that %ProgramData% is invisible from the Windows Explorer points of view!\\
-⍝ In case `tartgetPath` is not specified then it defaults to `%ProgramData%`.
 ⍝ This option exists purely for test cases.\\
-⍝ Returns a log of all actions taken.
-⍝ This project lives on https://github.com/dyalogusercommands/SaveDyalogEXEs
+⍝ In case `tartgetPath` is not specified then it defaults to `%ProgramData%`.\\
+⍝ Returns a log of all actions taken.\\
+⍝ Note that %ProgramData% is invisible from the Windows Explorer points of view!\\
+⍝ This project lives on <https://github.com/dyalogusercommands/SaveDyalogEXEs>.\\
 ⍝ Kai Jaeger / APL Team Ltd.
  ∆LOG←⍬
  Log←fake∘Log_
